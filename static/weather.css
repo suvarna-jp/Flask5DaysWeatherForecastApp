@@ -1,0 +1,42 @@
+body {
+  background: #3676ff;
+  /* background: linear-gradient(to top, rgb(23, 138, 247), rgb(119, 200, 253)); */
+  /* linear-gradient(to right, rgb(23, 138, 247), rgb(119, 200, 253)); */
+  /* background: url("{{ url_for ('static', filename = 'images/sky.jpg') }}"); */
+  /* background-image:url("{{url_for('static', filename='images/BlueSky.png')}}"); */
+  background-size: cover;
+  padding-top: 30px;
+}
+ 
+.well {
+  color: rgb(0, 130, 206);
+  /* background-color: rgb(140, 200, 255); */
+  background-color: rgb(155, 205, 252);
+  border-color: rgb(155, 205, 252);
+} 
+
+.box-shadow-demo {
+  box-shadow: 8px 8px 8px rgb(124, 143, 201);
+}
+
+img.one {
+  height: 100px;
+  width: 100px;
+}
+
+.two {
+  height: 100px;
+  width: 100px;
+}
+
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+  content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+  float: right;        /* adjust as needed */
+  color: rgb(155, 205, 252);         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}

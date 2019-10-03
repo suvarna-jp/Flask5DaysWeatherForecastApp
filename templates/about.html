@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body%}
+<h1>Welcome, {{ name }}</h1>
+<a href="{{ url_for('static', filename = '/login.html') }}">LOGIN PAGE</a>
+This is the About page
+
+<div>
+    <label name="name">Name : {{name}}</label>
+</div>  
+<div>
+    <label name="email">Email : {{email}}</label>
+</div> 
+<div>
+    <input type="text" name='msg'>{{msg}}
+</div>    
+
+{% endblock body %}

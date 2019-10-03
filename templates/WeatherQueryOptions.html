@@ -1,0 +1,49 @@
+{% extends 'weatherbase.html' %}
+
+{% block body%}
+
+<script type = "text/javascript" src = "{{ url_for('static', filename = 'weather.js') }}" ></script>
+    <div id="searchbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">                    
+        <div class="panel panel-info" >
+            <div class="panel-heading" style="background-color: rgb(155, 205, 252);">
+                <div class="panel-title"><h3>How may I help you today...</h3></div>
+                <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
+            </div>     
+
+            <div style="padding-top:30px" class="panel-body alert alert-indo" role="alert" >
+                <h4 class="alert-heading ">
+                    Based on what parameters would you like to search for the Weather Forecast?<br>
+                </h4>
+                <h5 class="text-info">
+                    <i>Choose an option for search<br><br></i>
+                </h5>   
+                <form id="searchTypeform" class="form-horizontal" role="form">
+                    <div id="searchOptions">
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="city_name" name="searchOption" onchange="searchWeather()">
+                            <label class="custom-control-label" for="searchOption">Search By City Name</label>
+                        </div>
+                        
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="city_id" name="searchOption"  onchange="searchWeather()">
+                            <label class="custom-control-label" for="searchOption">Search By City Id</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="geo_co_ord" name="searchOption" onchange="searchWeather()">
+                            <label class="custom-control-label" for="searchOption">Search By Geographic coordinates</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="zip_code" name="searchOption"  onchange="searchWeather()">
+                            <label class="custom-control-label" for="searchOption">Search By Zip Code</label>
+                        </div>   
+
+                    </div>
+                </form>   
+            </div>                     
+        </div>  
+    </div>
+
+{% endblock body %}

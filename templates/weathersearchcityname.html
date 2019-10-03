@@ -1,0 +1,95 @@
+{% extends 'weatherbase.html' %}
+
+{% block body%}
+
+    <div id="searchbox" style="margin-top:30px;" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">                    
+        <div class="panel panel-info" >
+            <div class="panel-heading" style="background-color: rgb(155, 205, 252);">
+                <div class="panel-title"><h4>Search by City Name</h4></div>
+                <div style="float:right; font-size: 80%; position: relative; top:-20px"></div>
+            </div>     
+
+            <div style="padding-top:30px; padding-bottom: 10px; margin-bottom: 10px" class="panel-body alert alert-indo" role="alert" >
+                <form id="searchCityNameForm" class="form-horizontal" role="form"  action="weathersearchcityname" method="POST">
+                    <div id="searchCityName">
+                        <div class="input-group">
+                            <span class="input-group-addon">City Name :</span>
+                            <input id="input_city_name" type="text" class="form-control" name="input_city_name" placeholder="Enter City Name">
+                        </div>
+                        <div>&nbsp;</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Country Code :</span>
+                            <input id="input_country_code" type="text" class="form-control" name="input_country_code" placeholder="Enter Country Code">
+                        </div>
+                        <div class="text-monospace" style="font-size: small; height: 15px;">To find a Country code <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes" class="alert-link">click here</a><br></div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary" id="city_name_sbmt" name="city_name_sbmt">Get Weather Forecast</button>&nbsp;
+                            <button type="reset" class="btn btn-primary" id="city_name_reset" name="city_name_reset">Reset</button>
+                            <button type="button" class="btn btn-primary" id="btn_back_search_type" name="btn_back_search_type">Back to Search Type</button>
+                        </div>
+                        <div style="height: 15px;">&nbsp;</div>
+
+                        {% if cityweather is not none and cityweather|length > 0 and cityweather['cod'] == '200' %}                 
+                        <div class="panel panel-default" style="max-width: 100%; display:block;" name="cityweather" id="cityweather">
+                            <div class="panel-heading" style="background-color: rgb(220, 238, 255);">
+                                <h2 class="panel-title" style="font-weight: bolder; height: 30px; font-size: 20px; color: rgb(0, 75, 160);">{{cityweather['city']['name']}} Weather Forecast</h2>
+                                City : <span class="text-info"> {{cityweather['city']['name']}}</span>({{cityweather['city']['id']}}), {{cityweather['city']['country']}}  
+                                Geo-coordinates[{{cityweather['city']['coord']['lat']}}, {{cityweather['city']['coord']['lon']}}]
+                            </div>
+                            <ul class="list-group list-group-flush square scrollbar-cyan bordered-cyan" style="height: 200px; overflow-y: scroll;">
+                                {% for weather in cityweather['list'] %}
+                                <a href="#" style="text-decoration: none;">
+                                    <li class="list-group-item" style="padding: 5px;">  
+                                        <h5 class="text-info"  style="font-size: small;font-weight: bolder; margin: 2px;">On {{weather['dt_txt']}} </h5>      
+                                        Temperature : {{weather['main']['temp']}}  |  Minimum Temperature : {{weather['main']['temp_min']}}  |  Maximum Temperature : {{weather['main']['temp_max']}}
+                                        |  Humidity : {{weather['main']['humidity']}}
+                                        <br>
+                                        {% for wthr in weather['weather'] %}
+                                            Weather : {{wthr['main']}}({{wthr['description']}})
+                                        {% endfor %}  |  Wind Speed : {{weather['wind']['speed']}}
+                                    </li>
+                                </a>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% elif cityweather is not none and cityweather|length > 0 and cityweather['cod'] == '500' %}
+                            <div class="alert alert-danger" role="alert" style="max-width: 80%; text-align:center; display: none;" name="errormessage2" id="errormessage2">
+                                Please check if you have entered a valid City name / Country Code.
+                                <br>To find a Country code <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes" class="alert-link">click here</a>. 
+                                Give it a click if you like.
+                            </div>
+                        {% endif %}
+                        
+                        {% if errormessage is not none and errormessage|length > 0 %}
+                        <div class="alert alert-danger" role="alert" style="max-width: 80%; text-align:center; display: none;" name="errormessage" id="errormessage">
+                            A simple danger alert with <a href="#" class="alert-link">an example link</a>. 
+                            Give it a click if you like.
+                            {{errormessage}}
+                            {% for msg in errormessage %}
+                                {{msg}}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div id="alertcard" class="card border-info mb-3" style="max-width: 18rem; display: none;">
+                        <div class="card-header" id="alertheader">Header</div>
+                        <div class="card-body text-info">
+                            <h5 class="card-title" id="alerttitle">Info card title</h5>
+                            <p class="card-text" id="alertmsg">fgdfgsd</p>
+                        </div>
+                    </div>                    
+                </form>   
+            </div>                     
+        </div>  
+    </div>
+    {% if cityweather is not none %}
+        {% set cityweather=none %}
+    {% endif %}
+    {% if errormessage2 is not none %}
+        {% set errormessage2=none %}
+    {% endif %}
+    {% if errormessage is not none %}
+        {% set errormessage=none %}
+    {% endif %}
+    <script type = "text/javascript" src = "/static/weather.js" ></script>
+{% endblock body %}

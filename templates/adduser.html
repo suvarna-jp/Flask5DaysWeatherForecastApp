@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block body%}
+
+<form action="/adduser" method="POST">
+ 
+    <div>
+        <label>Name : </label>
+        <input type="text" name="name">
+    </div>  
+    <div>
+        <label>Email : </label>
+        <input type="email" name="email">
+    </div> 
+    <div>
+            <div name='msg'></div>
+    </div>    
+    <button type="submit">Submit</button>
+    <div>&nbsp;</div>
+    <div>
+        {% if msg == "SUCCESS" %}Successfully added, {{name}} : {{email}} to the database. {% endif %}
+        {% if msg == "FAILED" %}Sorry! Could not add user. Please try again later.{% endif %}
+        {% if msg == "ALREADYADDED" %}This user {{name}} : {{email}} already exisits in our database. 
+        Please try adding another username.{% endif %}
+    </div> 
+    
+</form>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<h1>Users list : </h1>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>
+            {{ user.username }}
+        </td>
+        <td>
+            {{ user.email }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+{% endblock body %}
